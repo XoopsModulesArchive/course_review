@@ -1,0 +1,7 @@
+[29-Mar-2004 22:46:05] PHP Warning:  main(admin_header.php): failed to open stream: No such file or directory in /home/ravish/public_html/xoops/modules/courseReview/admin/index.php on line 2
+[29-Mar-2004 22:46:05] PHP Warning:  main(admin_header.php): failed to open stream: No such file or directory in /home/ravish/public_html/xoops/modules/courseReview/admin/index.php on line 2
+[29-Mar-2004 22:46:05] PHP Warning:  main(): Failed opening 'admin_header.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/ravish/public_html/xoops/modules/courseReview/admin/index.php on line 2
+[29-Mar-2004 22:46:05] PHP Fatal error:  Call to a member function on a non-object in /home/ravish/public_html/xoops/modules/courseReview/admin/index.php on line 7
+[30-Mar-2004 01:12:05] PHP Parse error:  parse error, expecting `','' or `';'' in /home/ravish/public_html/xoops/modules/courseReview/admin/edit_dept.php on line 26
+[30-Mar-2004 01:23:09] PHP Parse error:  parse error, expecting `T_STRING' or `T_VARIABLE' or `T_NUM_STRING' in /home/ravish/public_html/xoops/modules/courseReview/admin/edit_dept.php on line 31
+[30-Mar-2004 01:23:52] PHP Parse error:  parse error, expecting `T_STRING' or `T_VARIABLE' or `T_NUM_STRING' in /home/ravish/public_html/xoops/modules/courseReview/admin/edit_dept.php on line 31

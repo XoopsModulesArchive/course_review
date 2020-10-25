@@ -1,0 +1,31 @@
+<table>
+<tr class=head ><td colspan=3>Course Review</td></tr>
+<tr>
+<td><{$crarray.num}>, Prof.<{$crarray.pfname}> <{$crarray.plname}></td><td colspan=2></td>
+</tr>
+<tr>
+<td><{$crarray.photo}></td>
+<td>
+<table>
+<tr><td >Avg. differences</td><td ><{$crarray.avg.diff}></td></tr>
+<tr><td >Avg. usefullness</td><td ><{$crarray.avg.useful}></td></tr>
+<tr><td >Avg. effort</td><td ><{$crarray.avg.effort}></td></tr>
+<tr><td >Avg. effect</td><td ><{$crarray.avg.effect}></td></tr>
+<tr><td >Avg. fair</td><td ><{$crarray.avg.fair}></td></tr>
+<tr><td >Avg. avail</td><td ><{$crarray.avg.avail}></td></tr>
+<tr><td >Avg. overall</td><td ><{$crarray.avg.overall}></td></tr>
+</table>
+</td>
+
+<td>
+<a href='add.php'>Add review</a><br>
+<a href='edit.php'>Edit you review</a>
+</td>
+</tr>
+</table>
+<table>
+<tr class=head><td>Students Reviews</td></tr>
+<tr><td><table>
+<{$crarray.reviews}>
+</table></td></tr>
+</table>

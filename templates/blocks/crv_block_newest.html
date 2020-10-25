@@ -1,0 +1,5 @@
+<ul>
+  <{foreach item=item from=$block.items}>
+	<li><a href="<{$item.link_loc}>" title="<{$item.my_time}> by:&nbsp;<{$item.uname}> <{$item.dept_name}> <{$item.course_num}>"><{$item.title}></a></li>
+  <{/foreach}>
+</ul>

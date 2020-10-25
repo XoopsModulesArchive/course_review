@@ -1,0 +1,43 @@
+<form action="<{$cr.action}>" method="POST">
+  <table class="outer">
+    <tr>
+      <th colspan="2">Add Course Review</th>
+    </tr>
+    <tr>
+      <td class="head" width="30%">Term</td>
+      <td class="even" width="70%">
+        <select name="term">
+          <option value="fall">FALL</option>
+	  <option value="spring">SPRING</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td class="head" width="30%">Year</td>
+      <td class="even" width="70%"><input type="text" name="year"></td>
+    </tr>
+    <tr>
+      <td class="head" width="30%">Department</td>
+      <td class="even" width="70%"><{$cr.dep_list}></td>
+    </tr>
+    <tr>
+      <td class="head" width="30%">Course Number</td>
+      <td class="even" width="70%"><input type="text" name="courseNum"></td>
+    </tr>
+    <tr>
+      <td class="head" width="30%">Number of Units</td>
+      <td class="even" width="70%"><input type="text" name="units"></td>
+    </tr>
+    <tr>
+      <td class="head" width="30%"></td>
+      <td class="even" width="70%">
+	<table>
+	  <tr>
+	    <td width="10%"></td>
+	    <td width="90%"><input type="submit" value="CONTINUE"></td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+  </table>
+</form>

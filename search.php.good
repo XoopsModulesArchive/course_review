@@ -1,0 +1,639 @@
+<?php
+
+
+  include '../../mainfile.php';
+
+
+  include XOOPS_ROOT_PATH.'/header.php';
+
+
+
+
+
+
+
+
+// DOES THIS ALLOW SQL INJECTION?
+
+
+
+
+
+  if (isset($_POST['filled']) || isset($_GET['filled'])) {
+
+
+    $where = " dp.dept_id=rv.dept_id AND pr.prof_id=rv.prof_id AND
+
+
+cr.course_id=rv.course_id AND approve = 1";  
+
+
+    $needs_AND = 1;
+
+
+    $deptandprof = 0;
+
+
+    if (isset($_POST)) {
+
+
+    if ($_POST['deptName'] != null) {
+
+
+   		if($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " dp.dept_name=\"" . $_POST['deptName'] . "\"";
+
+
+	  $needs_AND = 1;
+
+
+	}
+
+
+    if ($_POST['courseNum'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.num= \"" . $_POST['courseNum'] . "\"";
+
+
+		
+
+
+		$needs_AND = 1;
+
+
+	}
+
+
+    if ($_POST['pLname'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " pr.lname = \"" . $_POST['pLname'] . "\"";
+
+
+		if ($deptandprof == 0) {
+
+
+		  $where = $where . " AND pr.dept_id = dp.dept_id";
+
+
+		  $deptandprof = 1;
+
+
+		}
+
+
+	
+
+
+		$needs_AND = 1;
+
+
+	}
+
+
+    if ($_POST['pFname'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " pr.fname = \"" . $_POST['pFname'] . "\"";
+
+
+		if ($deptandprof == 0) {
+
+
+		  $where = $where . " AND pr.dept_id = dp.dept_id";
+
+
+		  $deptandprof = 1;
+
+
+		}
+
+
+	}
+
+
+    if ($_POST['units'] != null) {
+
+
+		if ($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.units = " . $_POST['units'];
+
+
+    }
+
+
+    if ($_POST['term'] != null) {
+
+
+      if ($needs_AND)
+
+
+	$where = $where . " AND";
+
+
+      $where = $where . " cr.term = '$_POST[term]'"  ;
+
+
+    }		
+
+
+    if ($_POST['year'] != null) {
+
+
+      if ($needs_AND)
+
+
+	$where = $where . " AND";
+
+
+      $where = $where . " cr.year = " . $_POST['year'];
+
+
+    }				
+
+
+	
+
+
+    } else {
+
+
+    if ($_GET['deptName'] != null) {
+
+
+   		if($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+ 		$where = $where . " dp.dept_name=\"" . $_GET['deptName'] . "\"";
+
+
+	  $needs_AND = 1;
+
+
+	}
+
+
+    if ($_GET['courseNum'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.num= \"" . $_GET['courseNum'] . "\"";
+
+
+		
+
+
+		$needs_AND = 1;
+
+
+	}
+
+
+    if ($_GET['pLname'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		 $where = $where . " pr.lname = \"" . $_GET['pLname'] . "\"";
+
+
+	
+
+
+		$needs_AND = 1;
+
+
+	}
+
+
+    if ($_GET['pFname'] != null) {
+
+
+		if($needs_AND) 
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " pr.fname = \"" . $_GET['pFname'] . "\"";
+
+
+	}
+
+
+    if ($_GET['units'] != null) {
+
+
+		if ($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.units = " . $_GET['units'];
+
+
+    	}
+
+
+	if ($_GET['term'] != null) {
+
+
+		if ($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.term = '$_GET[term]'";
+
+
+    	}		
+
+
+	if ($_GET['year'] != null) {
+
+
+		if ($needs_AND)
+
+
+			$where = $where . " AND";
+
+
+		$where = $where . " cr.year = " . $_GET['year'];
+
+
+    	}		
+
+
+    }
+
+
+	
+
+
+    $q = "SELECT *, count(rv.course_id) as rv_cnt FROM xoops_cr_reviews rv, xoops_cr_depts dp, xoops_cr_courses cr , xoops_cr_profs pr  WHERE $where group by rv.course_id";
+
+
+
+
+
+#     echo $q;
+
+
+
+
+
+    $result = $xoopsDB->query($q);
+
+
+
+
+
+    if (mysql_num_rows($result) > 0) {
+
+
+      echo "<table>";
+
+
+      echo "<tr>";
+
+
+      if ($_POST['searchType'] == "prof" || $_GET['searchType'] == "prof") {
+
+
+	echo "<td><b>Prof Name</b></td>\n";
+
+
+	echo "<td><b>Count of reviews</b></td>\n";
+
+
+      } else {
+
+
+	echo "<td><b>Department / Course Num</b></td>\n";
+
+
+	echo "<td><b>Count of reviews</b></td>\n";
+
+
+      }
+
+
+      echo "</tr>";
+
+
+
+
+
+      while ($row = $xoopsDB->fetchArray($result)) {
+
+
+     
+
+
+        echo "<tr>";
+
+
+	if ($_POST['searchType'] == "prof" || $_GET['searchType'] == "prof") {
+
+
+	  echo "<td>$row[fname] $row[lname]</td>\n";
+
+
+	  echo "<td>$row[rv_cnt] <a href='reviews.php?profFname=$row[fname]&profLname=$row[lname]'>Details</a></td>\n";
+
+
+	} else {
+
+
+	  echo "<td>$row[dept_name] $row[num]</td>\n";
+
+
+	  echo "<td>$row[rv_cnt] <a href='reviews.php?course=$row[course_id]'>Details</a></td>\n";
+
+
+	}
+
+
+        echo "</tr>";
+
+
+      }
+
+
+      echo "</table>";
+
+
+	  echo "<p><br /></p>";
+
+
+    }
+
+
+
+
+
+  }
+
+
+?>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php /*
+
+
+<form action="search.php" method="post">
+
+
+  <table class="outer">
+
+
+    <tr><th colspan="2">SEARCH FOR COURSE REVIEW</th></tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">DEPARTMENT</td>
+
+
+      <td class="even" width="70%">
+
+
+<?php
+
+
+  $table = $xoopsDB->prefix("cr_depts");
+
+
+  $q = "SELECT dept_name FROM " . $table . " ORDER BY " . $table . ".dept_name";
+
+
+  $result = $xoopsDB->query($q);
+
+
+
+
+
+  echo "<select name=\"deptName\">\n";
+
+
+  echo "<option value=\"\">CHOOSE A DEPT</option>\n";
+
+
+  while($row = $xoopsDB->fetchArray($result)) {
+
+
+    echo "<option value=\"". $row['dept_name'] . "\">" . $row['dept_name'] . "</option>\n";
+
+
+  }
+
+
+  echo "</select>\n";
+
+
+?>
+
+
+      </td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">COURSE NUMBER</td>
+
+
+      <td class="even" width="70%"><input type="text" name="courseNum"></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">LAST NAME</td>
+
+
+      <td class="even" width="70%"><input type="text" name="pLname"></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">FIRST NAME</td>
+
+
+      <td class="even" width="70%"><input type="text" name="pFname"></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">UNITS</td>
+
+
+      <td class="even" width="70%"><input type="text" name="units"></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">TERM</td>
+
+
+      <td class="even" width="70%">        
+
+
+	  <select name="term">
+
+
+
+
+
+       <option value='fall' >FALL</option>
+
+
+	 <option value='spring'  %s >SPRING</option>
+
+
+
+
+
+        </select></td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td class="head" width="30%">YEAR</td>
+
+
+      <td class="even" width="70%"><input type="text" name="year"></td>
+
+
+    </tr>		
+
+
+    <tr>
+
+
+      <td class="head" width="30%"></td>
+
+
+      <td class="even" width="70%">
+
+
+        <input type="hidden" name="filled" value="yes">
+
+
+        <input type="submit" value="SEARCH">
+
+
+      </td>
+
+
+    </tr>
+
+
+  </table>
+
+
+</form>
+
+
+<?php */ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+
+  include_once XOOPS_ROOT_PATH.'/footer.php';
+
+
+?>
+
+

@@ -1,0 +1,175 @@
+<h1>Review Course</h1>
+
+<!--<font color="red">* Required fields</font>-->
+<form action="thankyou.php" method="POST" ENCTYPE='multipart/form-data'>
+  <table class="outer">
+    <tr>
+      <th colspan="2">Add a Course Review</th>
+    </tr>
+    <tr>
+      <td class="head">Course Title<font color="red">*</font></td>
+      <td class="even"><input type="text" name="c_title" size="35"></td>
+    </tr>
+    <tr>
+      <td class="head">Professor Name<font color="red">*</font> (First, Last)</td>
+      <td class="even">
+        <table>
+          <tr>
+            <td class="even"><input type="text" name="pfname" size="15"></td>
+            <td class="even"><input type="text" name="plname" size="15"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+       <td class="head">Catchy Title<font color="red">*</font></td>
+       <td class="even"><input type="text" name="title" size="35"></td>
+    </tr>
+    <tr>
+      <td class="head">Message Icons</td>
+      <td class="even">
+	  
+	  <{$cr.list}>
+
+      </td>
+    </tr>
+    <tr>
+       <td class="head"><b>Review</b><font color="red">*</font></td>
+       <td class="even">
+          <textarea rows="5" cols="60" name="text"></textarea>
+       </td>
+    </tr>
+    <tr>
+      <td class="head" width="20">Attach Syllabus</td>
+      <td class="even">
+  	<table>
+          <tr>
+            <td><input type="file" size="15" name="syllabus"></td>
+            <td width="20">Browse Button</td>
+            <td width="20">Title:</td>
+            <td><input type="text" size="15" name="syllab_title"></td>
+ 	  </tr>
+	</table>
+      </td>
+    </tr>
+    <tr>
+      <td class="head" width="20">Attach Picture</td>
+      <td class="even">
+	<table>
+ 	  <tr>
+            <td><input type="file" size="15" name="picture"></td>
+            <td width="20">Browse Button</td>
+            <td width="20">Title:</td>
+            <td><input type="text" size="15" name="pic_title"></td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="head">Course Ranking</td>
+      <td class="even">
+	<table>
+	  <tr>
+            <td width="30%">Difficulty:</td>
+            <td width="70%">
+              <select name="diff">
+
+				<{$cr.dropdown}>
+              </select>
+           </td>
+	  </tr>
+	  <tr>
+	    <td width="30%">Usefulness:</td>
+	    <td width="70%">
+	      <select name="useful">
+			<{$cr.dropdown}>
+
+	      </select>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td width="30%">Effort:</td>
+	    <td width="70%">
+	      <select name="effort">
+			<{$cr.dropdown}>
+
+	      </select>
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="head">Professor Ranking</td>
+      <td class="even">
+	<table>
+	  <tr>
+	    <td width="30%">Effectiveness:</td>
+	    <td width="70%">
+	      <select name="effect">
+		<{$cr.dropdown}>
+
+	      </select>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td width="30%">Fairness:</td>
+	    <td width="70%">
+	      <select name="fair">
+		<{$cr.dropdown}>		  
+
+	      </select>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td width="30%">Availability:</td>
+	    <td width="70%">
+	      <select name="avail">
+		<{$cr.dropdown}>
+
+	      </select>
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="head">Overall Ranking</td>
+      <td class="even">
+	<table>
+	  <tr>
+	    <td width="30%">Overall:</td>
+	    <td width="70%">
+	      <select name="overall">
+		<{$cr.dropdown}>
+
+	      </select>
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="head"></td>
+      <td class="even" align="center">
+	  
+<?php
+  $q_deptid = "SELECT dept_id FROM xoops_cr_depts WHERE dept_name = \"" . $_POST['deptName'] . "\"";
+  $result = $xoopsDB->query($q_deptid);
+  $onlyrow = $xoopsDB->fetchArray($result);
+  $deptId = $onlyrow['dept_id'];
+  echo "<input type=\"hidden\" value=" . $deptId . " name=\"dept_id\">";
+  echo "<input type=\"hidden\" value=" . $_POST['courseNum'] . " name=\"course_num\">";
+  echo "<input type=\"hidden\" value=" . $_POST['term'] . " name=\"term\">";
+  echo "<input type=\"hidden\" value=" . $_POST['year'] . " name=\"year\">";
+  echo "<input type=\"hidden\" value=" . $_POST['units'] . " name=\"units\">";
+?>
+        <input type="submit" value="ADD REVIEW!">
+      </td>
+    </tr>
+  </table>
+</form>

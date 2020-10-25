@@ -1,0 +1,15 @@
+<form action='professors.php?op=accept_photo&pid=<{$profarray.prof_id}>' method=post>
+<table>
+<tr class=head>
+<td><{$profarray.langphoto}></td>
+<td><{$profarray.langassign}></td>
+</tr>
+<{foreach item=photo from=$profarray.photos}>
+<tr>
+<td><img src='<{$xoops_url}>/modules/<{$module_dirname}>/image_show.php?image_url=<{$photo.image_url}>'><br><{$profarra.languploaded_by}> <a href='<{$xoops_url}>/modules/ipboard/index.php?showuser=<{$photo.uid}>'><{$photo.uname}></a></td>
+<td><input type=radio name=im_url value='<{$photo.image_url}>'> </td>
+</tr>
+<{/foreach}>
+<tr><td></td><td><input type=submit value='<{$profarray.langsubmit}>'></td></tr>
+</table>
+</form>
